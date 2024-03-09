@@ -1,0 +1,431 @@
+<!doctype html><html lang=uk dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="ZFS — Справочник команд # Данный справочник является переводом данной статьи. Авторы перевода: Евгений Ратников и Сгибнев Михаил. Огромное им спасибо за проделанную работу!
+Данная информация представлена в интернете на множестве ресурсов. Оригинальная статья оформлена в виде таблицы, я же оформлю ее в привычном для моего блога формате — в формате пошагового обучения.
+В любом случае не забывайте про страницы справки по командам работы с ZFS.
+man zpool man zfs Так как включить в пул (zpool) можно любые сущности файловой системы, автор приводит примеры построения пулов и работы с ними с использованием простых файлов."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="ZFS — Справочник команд"><meta property="og:description" content="ZFS — Справочник команд # Данный справочник является переводом данной статьи. Авторы перевода: Евгений Ратников и Сгибнев Михаил. Огромное им спасибо за проделанную работу!
+Данная информация представлена в интернете на множестве ресурсов. Оригинальная статья оформлена в виде таблицы, я же оформлю ее в привычном для моего блога формате — в формате пошагового обучения.
+В любом случае не забывайте про страницы справки по командам работы с ZFS.
+man zpool man zfs Так как включить в пул (zpool) можно любые сущности файловой системы, автор приводит примеры построения пулов и работы с ними с использованием простых файлов."><meta property="og:type" content="article"><meta property="og:url" content="https://denisbondar.github.io/post/zfs-manual-rus/"><meta property="article:section" content="post"><meta property="article:published_time" content="2018-10-15T00:00:00+00:00"><meta property="article:modified_time" content="2018-10-15T00:00:00+00:00"><title>ZFS — Справочник команд | Notes</title>
+<link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6e9dc01763201e1138d92988ddb76ac12def039312e5473a6847a96d89bc05af.css integrity="sha256-bp3AF2MgHhE42SmI3bdqwS3vA5MS5Uc6aEepbYm8Ba8=" crossorigin=anonymous><script defer src=/flexsearch.min.js></script><script defer src=/uk.search.min.48f7ca0f53c979aaa40e09850a1ee3a56262959e0a75a0ae36e09883bd5bc879.js integrity="sha256-SPfKD1PJeaqkDgmFCh7jpWJilZ4KdaCuNuCYg71byHk=" crossorigin=anonymous></script><script>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-8991816-14","auto"),ga("send","pageview"))</script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>Notes</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Пошук aria-label=Пошук maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/post/winbox-macos-retina/>Launching Winbox on macOS</a></li><li><a href=/post/openvpn-server/>OpenVPN Server</a></li><li><a href=/post/alpine-php-nginx-logrotate-docker-image/>Докеризация PHP-приложения в единый Docker-образ Alpine+PHP+NGINX+logrotate</a></li><li><a href=/post/postfix-dkim-spf-tls-dmarc/>Персональный почтовый сервер</a></li><li><a href=/post/winbox-wine-tahoma-font/>Winbox в Wine как исправить кривой шрифт</a></li><li><a href=/post/how-to-install-docker-on-linux/>Установка Docker в Linux</a></li><li><a href=/post/phpstorm_docker_xdebug/>PhpStorm + Docker + Xdebug</a></li><li><a href=/post/zfs-manual-rus/ class=active>ZFS — Справочник команд</a></li><li><a href=/post/midi-keybiard-jack-bitwig-studio/>Как подключить MIDI клавиатуру к Bitwig Studio</a></li><li><a href=/post/how-to-install-debian-8/>Как установить Debian 8 без знаний и опыта</a></li><li><a href=/post/install-nginx-php7-mysql57-mariadb11-debian-ubuntu/>Установка Nginx 1.13, PHP 7, MySQL 5.7, MariaDB 10.1, PostgreSQL 11 в Debian и Ubuntu</a></li><li><a href=/post/asterisk-13-chan_dongle-debian-8/>Установка Asterisk 13 + chan_dongle (E1550, E1750) на Debian 8</a></li><li><a href=/post/asterisk11-chan_dongle_e1550-ubuntu14/>Asterisk11 Chan_dongle_e1550 Ubuntu14</a></li><li><a href=/post/asterisk-example-2-dongle-call-management/>Asterisk. Пример 2 — SIP и DONGLE</a></li><li><a href=/post/apache24php7win10/>Apache 2.4 + PHP 7 на Windows 7­, 10</a></li><li><a href=/post/simply-install-freebsd/>Как установить FreeBSD с флешки</a></li><li><a href=/post/resize-gpt-psrtition-freebsd/>Изменить размер раздела GPT FreeBSD vmWare</a></li><li><a href=/post/material-design-product-icon-ai/>Как создать иконку приложения в стиле Material Design. Наиболее правильная инструкция</a></li><li><a href=/post/asterisk-example-1-call-between-two-sip-line/>Asterisk. Пример 1 — вызов между двумя линиями SIP</a></li><li><a href=/post/manual-freebsd-install/>Ручная установка FreeBSD на USB flash или HDD</a></li><li><a href=/post/apache24php56win7/>Apache 2.4 + PHP 5.6 + MySQL 5.6 на Windows 7, 10</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu>
+</label><strong>ZFS — Справочник команд</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#работа-с-пулом-zfs>Работа с пулом ZFS</a></li><li><a href=#работа-с-файловой-и-другими-системами-zfs>Работа с файловой и другими системами ZFS</a><ul><li><a href=#файловая-система>Файловая система</a></li><li><a href=#snapshots-снепшоты-или-снимки-состояния>Snapshots (снепшоты или снимки состояния)</a></li><li><a href=#снова-вернемся-к-пулам>Снова вернемся к пулам</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=zfs--справочник-команд>ZFS — Справочник команд
+<a class=anchor href=#zfs--%d1%81%d0%bf%d1%80%d0%b0%d0%b2%d0%be%d1%87%d0%bd%d0%b8%d0%ba-%d0%ba%d0%be%d0%bc%d0%b0%d0%bd%d0%b4>#</a></h1><p>Данный справочник является переводом <a href=http://lildude.co.uk/zfs-cheatsheet>данной статьи</a>. Авторы перевода: <a href=http://citkit.ru/articles/504/>Евгений Ратников</a> и <a href=http://dreamcatcher.ru/>Сгибнев Михаил</a>. Огромное им спасибо за проделанную работу!</p><p>Данная информация представлена в интернете на множестве ресурсов. Оригинальная статья оформлена в виде таблицы, я же оформлю ее в привычном для моего блога формате — в формате пошагового обучения.</p><p>В любом случае не забывайте про страницы справки по командам работы с ZFS.</p><pre tabindex=0><code>man zpool
+man zfs
+</code></pre><p>Так как включить в пул (zpool) можно любые сущности файловой системы, автор приводит примеры построения пулов и работы с ними с использованием простых файлов. Итак, создадим несколько файлов, с которыми будем работать подобно дискам.</p><pre tabindex=0><code>cd /
+mkfile 100m disk1 disk2 disk3 disk5
+mkfile 50m disk4
+</code></pre><p>Мы создали 5 «виртуальных дисков». Четыре имею размер по 100 Мб, а один — 50 Мб. Это пригодится для демонстрации работы с устройствами (разделами) разной ёмкости.</p><h2 id=работа-с-пулом-zfs>Работа с пулом ZFS
+<a class=anchor href=#%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%b0-%d1%81-%d0%bf%d1%83%d0%bb%d0%be%d0%bc-zfs>#</a></h2><p>Теперь создадим простой пул без избыточности, затем проверим его размер и использование.</p><pre tabindex=0><code>zpool create myzfs /disk1 /disk2
+zpool list
+
+NAME          SIZE    USED   AVAIL    CAP  HEALTH     ALTROOT
+myzfs         191M     94K    191M     0%  ONLINE     -
+</code></pre><p>Созданы пул автоматически монтируется в каталог <code>/myzfs</code>. Посмотрим более детальную информацию о нашем хранилище.</p><pre tabindex=0><code>zpool status -v
+
+  pool: myzfs
+ state: ONLINE
+ scrub: none requested
+config:
+        NAME        STATE     READ WRITE CKSUM
+        myzfs       ONLINE       0     0     0
+          /disk1    ONLINE       0     0     0
+          /disk2    ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre><p>Из вывода видно, что в пул включены два диска. Пул без избыточности (не mirror и не RAIDZ).</p><p>Теперь попробуем удалить только что созданный пул. Должны же мы это уметь.</p><pre tabindex=0><code>zpool destroy myzfs
+zpool list
+
+no pools available
+</code></pre><p>Попробуем снова создать пул типа <em>MIRROR</em> (зеркало), но на этот раз попытаемся включить в него диски разного размера. Zpool не даст нам этого сделать. Чтобы безоговорочно создать такой пул, используйте опцию <code>-f</code>, но в этом случае помните — размер зеркала будет равен объему наименьшего диска.</p><pre tabindex=0><code>zpool create myzfs mirror /disk1 /disk4
+
+invalid vdev specification
+use &#39;-f&#39; to override the following errors:
+mirror contains devices of different sizes
+</code></pre><p>Создать зеркалируемое (<em>MIRROR</em>) хранилище можно на двух и более устройствах. Сколько устройств в пуле типа <code>MIRROR</code> — столько у нас есть одинаковых копий данных.</p><pre tabindex=0><code>zpool create myzfs mirror /disk1 /disk2 /disk3
+zpool list
+NAME          SIZE    USED   AVAIL    CAP  HEALTH     ALTROOT
+myzfs        95.5M    112K   95.4M     0%  ONLINE     -
+
+zpool status -v
+  pool: myzfs
+ state: ONLINE
+ scrub: none requested
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        myzfs       ONLINE       0     0     0
+          mirror    ONLINE       0     0     0
+            /disk1  ONLINE       0     0     0
+            /disk2  ONLINE       0     0     0
+            /disk3  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre><p>Вместо зеркалирования можно использовать массивы <em>RAID</em>. Для этого необходимо создавать пул типа <code>raidz</code> вместо <code>mirror</code>. Подробнее в <a href=https://docs.freebsd.org/en/books/handbook/zfs/>хендбуке</a>.</p><p>Давайте теперь исключим один из дисков из пула. Так как этот диск относится к зеркалу (<em>MIRROR</em>), то при его исключении никаких проблем не возникает.</p><pre tabindex=0><code>zpool detach myzfs /disk3
+zpool status -v
+
+  pool: myzfs
+ state: ONLINE
+ scrub: none requested
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        myzfs       ONLINE       0     0     0
+          mirror    ONLINE       0     0     0
+            /disk1  ONLINE       0     0     0
+            /disk2  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre><p>Теперь давайте добавим к пулу новый диск. Если пул не был зеркальным, то он им станет после добавления нового диска.</p><pre tabindex=0><code>zpool attach myzfs /disk1 /disk3
+zpool status -v
+
+  pool: myzfs
+ state: ONLINE
+ scrub: resilver completed with 0 errors on Tue Sep 11 13:31:49 2007
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        myzfs       ONLINE       0     0     0
+          mirror    ONLINE       0     0     0
+            /disk1  ONLINE       0     0     0
+            /disk2  ONLINE       0     0     0
+            /disk3  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre><p>А что будет, если попытаемся <em>удалить</em>, а не исключить устройство из пула? Zpool сообщит нам о том, что устройство не может быть удалено. Для начала его нужно отключить.</p><pre tabindex=0><code>zpool remove myzfs /disk3
+
+cannot remove /disk3: only inactive hot spares can be removed
+
+zpool detach myzfs /disk3
+</code></pre><p>Теперь давайте попробуем добавить диск горячей замены (<em>hot spare</em>) к нашему пулу.</p><pre tabindex=0><code>zpool add myzfs spare /disk3
+zpool status -v
+
+  pool: myzfs
+ state: ONLINE
+ scrub: none requested
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        myzfs       ONLINE       0     0     0
+          mirror    ONLINE       0     0     0
+            /disk1  ONLINE       0     0     0
+            /disk2  ONLINE       0     0     0
+        spares
+          /disk3    AVAIL   
+
+errors: No known data errors
+</code></pre><p>А теперь удалим его из пула.</p><pre tabindex=0><code>zpool remove myzfs /disk3
+zpool status -v
+
+  pool: myzfs
+ state: ONLINE
+ scrub: none requested
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        myzfs       ONLINE       0     0     0
+          mirror    ONLINE       0     0     0
+            /disk1  ONLINE       0     0     0
+            /disk2  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre><p>Теперь попробуем отключить один из дисков. Пока диск отключен, на него не будет производиться запись и с него не будет производиться чтение. Если использовать параметр <code>-t</code>, то при перезагрузке сервера диск вернется в состояние онлайн автоматически.</p><pre tabindex=0><code>zpool offline myzfs /disk1
+zpool status -v
+
+  pool: myzfs
+ state: DEGRADED
+status: One or more devices has been taken offline by the administrator.
+        Sufficient replicas exist for the pool to continue functioning 
+        in a degraded state.
+action: Online the device using &#39;zpool online&#39; or replace the device 
+        with &#39;zpool replace&#39;.
+ scrub: resilver completed with 0 errors on Tue Sep 11 13:39:25 2007
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        myzfs       DEGRADED     0     0     0
+          mirror    DEGRADED     0     0     0
+            /disk1  OFFLINE      0     0     0
+            /disk2  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre><p>Обратите внимание на состояние пула: <strong>DEGRADED</strong></p><p>Теперь включим этот диск.</p><pre tabindex=0><code>zpool online myzfs /disk1
+zpool status -v
+
+  pool: myzfs
+ state: ONLINE
+ scrub: resilver completed with 0 errors on Tue Sep 11 13:47:14 2007
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        myzfs       ONLINE       0     0     0
+          mirror    ONLINE       0     0     0
+            /disk1  ONLINE       0     0     0
+            /disk2  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre><p>Состояние пула снова <strong>ONLINE</strong>.</p><p>В данный момент в нашем пуле два диска: disc1 и disc2. Также в системе имеется диск disc3, но он не подключен к пулу. Предположим, что disc1 вышел из строя и его нужно заменить на disc3.</p><pre tabindex=0><code>zpool replace myzfs /disk1 /disk3
+zpool status -v
+
+  pool: myzfs
+ state: ONLINE
+ scrub: resilver completed with 0 errors on Tue Sep 11 13:25:48 2007
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        myzfs       ONLINE       0     0     0
+          mirror    ONLINE       0     0     0
+            /disk3  ONLINE       0     0     0
+            /disk2  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre><p>Периодически для исправления ошибок необходимо выполнять процедуру чистки (scrubbing) для пулов типа <em>MIRROR</em> или <em>RAID-Z</em>. Данная процедура находит ошибки в контрольных суммах и исправляет их. Также восстанавливаются сбойные блоки.</p><p><strong>Данная операция слишком ресурсоемка! Следует выполнять ее только во время наименьшей нагрузки на пул.</strong></p><pre tabindex=0><code>zpool scrub myzfs
+</code></pre><p>Если необходимо перенести пул в другую систему, то его необходимо сначала экспортировать.</p><pre tabindex=0><code>zpool export myzfs
+pool list
+
+no pools available
+</code></pre><p>А затем импортировать в новой системе.</p><p>Если ключ <code>-d</code> не указать, то команда ищет <code>/dev/dsk</code>. Так как в данном примере мы используем файлы, необходимо указать директорию с файлами используемыми хранилищем.</p><pre tabindex=0><code>zpool import -d / myzfs
+zpool list
+
+NAME          SIZE    USED   AVAIL    CAP  HEALTH     ALTROOT
+myzfs        95.5M    114K   95.4M     0%  ONLINE     -
+</code></pre><p>Обновление версии пула. Показать версию используемого пула. Флаг <code>-v</code> показывает возможности, поддерживаемые данным пулом. Используйте флаг <code>-a</code>, чтобы обновить все доступные пулы до новейшей из них версии. Обновленные пулы больше не будут доступны из систем, на которых работают более старые версии.</p><pre tabindex=0><code>zpool upgrade
+This system is currently running ZFS pool version 8.
+
+All pools are formatted using this version.
+
+
+zpool upgrade -v
+
+This system is currently running ZFS pool version 8.
+
+The following versions are supported:
+
+VER  DESCRIPTION
+---  --------------------------------------------------------
+ 1   Initial ZFS version
+ 2   Ditto blocks (replicated metadata)
+ 3   Hot spares and double parity RAID-Z
+ 4   zpool history
+ 5   Compression using the gzip algorithm
+ 6   pool properties
+ 7   Separate intent log devices
+ 8   Delegated administration
+For more information on a particular version, including supported 
+releases, see:
+
+http://www.opensolaris.org/os/community/zfs/version/N
+
+Where &#39;N&#39; is the version number.
+</code></pre><p>Если нужно получить статистику по операциям ввода/вывода пулов, выполняем команду.</p><pre tabindex=0><code>zpool iostat 5
+               capacity     operations    bandwidth 
+pool         used  avail   read  write   read  write
+----------  -----  -----  -----  -----  -----  -----
+myzfs        112K  95.4M      0      4     26  11.4K
+myzfs        112K  95.4M      0      0      0      0
+myzfs        112K  95.4M      0      0      0      0
+</code></pre><h2 id=работа-с-файловой-и-другими-системами-zfs>Работа с файловой и другими системами ZFS
+<a class=anchor href=#%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%b0-%d1%81-%d1%84%d0%b0%d0%b9%d0%bb%d0%be%d0%b2%d0%be%d0%b9-%d0%b8-%d0%b4%d1%80%d1%83%d0%b3%d0%b8%d0%bc%d0%b8-%d1%81%d0%b8%d1%81%d1%82%d0%b5%d0%bc%d0%b0%d0%bc%d0%b8-zfs>#</a></h2><h3 id=файловая-система>Файловая система
+<a class=anchor href=#%d1%84%d0%b0%d0%b9%d0%bb%d0%be%d0%b2%d0%b0%d1%8f-%d1%81%d0%b8%d1%81%d1%82%d0%b5%d0%bc%d0%b0>#</a></h3><p>Создадим файловую систему в нашем пуле. Затем проверим автомонтирование новой файловой системы.</p><pre tabindex=0><code>zfs create myzfs/colin
+df -h
+
+Filesystem   kbytes    used   avail capacity  Mounted on
+...
+myzfs/colin  64M        18K     63M       1%  /myzfs/colin
+</code></pre><p>Получить список файловых систем ZFS можно следующей командой.</p><pre tabindex=0><code>zfs list
+
+NAME          USED  AVAIL  REFER  MOUNTPOINT
+myzfs         139K  63.4M    19K  /myzfs
+myzfs/colin    18K  63.4M    18K  /myzfs/colin
+</code></pre><p>В данный момент в нашем пуле имеется одно зеркало, в которое входят два диска: disc2 и disc3.</p><p>Давайте попробуем расширить наш пул. Попытаемся добавить к нему disc1</p><pre tabindex=0><code>zpool add myzfs /disk1
+
+invalid vdev specification
+use &#39;-f&#39; to override the following errors:
+mismatched replication level: pool uses mirror and new vdev is file
+</code></pre><p>Попытка добавления не удалась, т.к. она неоднозначно и при добавлении диска к существующему зеркалу необходимо указать дополнительно один из существующих в этом зеркале дисков, либо добавить минимум два диска для формирования нового зеркала, которое будет входить в данный пул.</p><p>Добавим к пулу новое зеркало, состоящее из дисков: disc1 и disc5</p><pre tabindex=0><code>zpool add myzfs mirror /disk1 /disk5
+zpool status -v
+
+  pool: myzfs
+ state: ONLINE
+ scrub: none requested
+config:
+
+        NAME         STATE     READ WRITE CKSUM
+        myzfs        ONLINE       0     0     0
+          mirror     ONLINE       0     0     0
+            /disk3   ONLINE       0     0     0
+            /disk2   ONLINE       0     0     0
+          mirror     ONLINE       0     0     0
+            /disk1   ONLINE       0     0     0
+            /disk5   ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre><p>Добавим теперь к пулу еще одну файловую систему и посмотрим, как это отразится на размере файловых систем, входящих в пул.</p><pre tabindex=0><code>zfs create myzfs/colin2
+zfs list
+
+NAME           USED  AVAIL  REFER  MOUNTPOINT
+myzfs          172K   159M    21K  /myzfs
+myzfs/colin     18K   159M    18K  /myzfs/colin
+myzfs/colin2    18K   159M    18K  /myzfs/colin2
+</code></pre><p>Обе файловые системы, входящие в пул, по объему равны всему пулу. В этом заключается одно из преимуществ системы ZFS — по умолчанию нет никакого ограничения на файловые системы.</p><p>Чтобы явно управлять объемом файловых систем, можно прибегнуть к резервированию — выделению гарантированного объема для файловой системы, либо квотированию — ограничению файловой системы по максимальному объему.</p><p>Давайте зарезервируем для файловой системы <code>/myzfs/colin</code> место в пуле, равное 20 Мб. Остальные файловые системы, заполняя пул, в любом случае оставят для этой файловой системы 20 Мб места.</p><pre tabindex=0><code>zfs set reservation=20m myzfs/colin
+zfs list -o reservation
+
+RESERV
+  none
+   20M
+  none
+</code></pre><p>Теперь для файловой системы <code>/myzfs/colin2</code> установим квоту в 20 Мб. Это означает, что данная файловая система не сможет занять в пуле более 20 Мб, даже если пул будет полностью свободным.</p><pre tabindex=0><code>zfs set quota=20m myzfs/colin2
+zfs list -o quota myzfs/colin myzfs/colin2
+
+QUOTA
+ none
+  20M
+</code></pre><p>Также для файловой системы <code>/myzfs/colin2</code> включим сжатие. Сжатие достаточно эффективно работает на уровне ZFS практически без потерь производительности (конечно же, при условии, что производительности сервера достаточно). Вместо <code>compression=on</code> можно использовать <code>compression=gzip</code>.</p><pre tabindex=0><code>zfs set compression=on myzfs/colin2
+zfs list -o compression
+
+COMPRESS
+     off
+     off
+      on
+</code></pre><p>Чтобы сделать файловую систему доступной по протоколу NFS, достаточно выполнить одну команду. Причем после перезагрузки сервера доступ к файловой системе утерян не будет. Никаких дополнительных настроек операционной системы производить не нужно.</p><pre tabindex=0><code>zfs set sharenfs=on myzfs/colin2
+zfs get sharenfs myzfs/colin2 
+
+NAME           PROPERTY  VALUE     SOURCE
+myzfs/colin2   sharenfs  on        local
+</code></pre><p>Точно так же в одну команду ресурс можно сделать доступным по протоколу SMB. Что пользователям ОС Windows наверняка пригодится.</p><pre tabindex=0><code>zfs set sharesmb=on myzfs/colin2
+zfs get sharesmb myzfs/colin2
+
+NAME           PROPERTY  VALUE     SOURCE
+myzfs/colin2   sharesmb  on        local
+</code></pre><p>Для повышения надежности (если у вас обычный пул, без избыточности), можно использовать следующую опцию файловой системы.</p><pre tabindex=0><code>zfs set copies=2 myzfs/colin2
+</code></pre><p>Теперь в файловой системе будет храниться по две копии каждого блока. Это имеет смысл, если пул без избыточности (<em>mirror</em> / <em>raidz</em>).</p><h3 id=snapshots-снепшоты-или-снимки-состояния>Snapshots (снепшоты или снимки состояния)
+<a class=anchor href=#snapshots-%d1%81%d0%bd%d0%b5%d0%bf%d1%88%d0%be%d1%82%d1%8b-%d0%b8%d0%bb%d0%b8-%d1%81%d0%bd%d0%b8%d0%bc%d0%ba%d0%b8-%d1%81%d0%be%d1%81%d1%82%d0%be%d1%8f%d0%bd%d0%b8%d1%8f>#</a></h3><p>Создать снепшот файловой системы очень просто. Давайте создадим снепшот для файловой системы <code>myzfs/colin</code> и назовем его <em>test</em>.</p><pre tabindex=0><code>zfs snapshot myzfs/colin@test
+zfs list
+
+NAME               USED  AVAIL  REFER  MOUNTPOINT
+myzfs             20.2M   139M    21K  /myzfs
+myzfs/colin         18K   159M    18K  /myzfs/colin
+myzfs/colin@test      0      -    18K  -
+myzfs/colin2        18K  20.0M    18K  /myzfs/colin2
+</code></pre><p>Если появится необходимость отката к снепшоту, достаточно выполнить одну команду.</p><pre tabindex=0><code>zfs rollback myzfs/colin@test
+</code></pre><p>Снэпшот можно подмониторовать, как обычно. Например так.</p><pre tabindex=0><code>mount -t zfs myzfs/colin@test /mnt
+</code></pre><p>Даже можно клонировать файловую системы из снепшота в новую файловую систему.</p><pre tabindex=0><code>zfs clone myzfs/colin@test myzfs/colin3
+zfs list
+
+NAME               USED  AVAIL  REFER  MOUNTPOINT
+myzfs             20.2M   139M    21K  /myzfs
+myzfs/colin         18K   159M    18K  /myzfs/colin
+myzfs/colin@test      0      -    18K  -
+myzfs/colin2        18K  20.0M    18K  /myzfs/colin2
+myzfs/colin3          0   139M    18K  /myzfs/colin3
+</code></pre><p>Теперь давайте удалим наши файловые системы <code>/myzfs/colin</code> и <code>/myzfs/colin2</code></p><p>Сперва удалим пустую файловую систему <code>/myzfs/colin2</code></p><pre tabindex=0><code>zfs destroy myzfs/colin2
+zfs list
+
+NAME               USED  AVAIL  REFER  MOUNTPOINT
+myzfs             20.1M   139M    22K  /myzfs
+myzfs/colin         18K   159M    18K  /myzfs/colin
+myzfs/colin@test      0      -    18K  -
+myzfs/colin3          0   139M    18K  /myzfs/colin3
+</code></pre><p>Файловая система удалилась без проблем. Теперь удалим файловую систему, для которой существует снепшот.</p><pre tabindex=0><code>zfs destroy myzfs/colin 
+
+cannot destroy &#39;myzfs/colin&#39;: filesystem has children
+use &#39;-r&#39; to destroy the following datasets:
+myzfs/colin@test
+</code></pre><p>Удаление невозможно, т.к. у файловой системы имеется дочерний объект. Можно воспользоваться параметром <code>-r</code> чтобы удалить файловую систему вместе со всеми дочерними объектами рекурсивно.</p><p>Мы можем отключить снепшот от <code>/myzfs/colin</code> и оставить его дочерним только для <code>/myzfs/colin3</code></p><pre tabindex=0><code>zfs promote myzfs/colin3
+zfs list
+
+NAME                USED  AVAIL  REFER  MOUNTPOINT
+myzfs              20.1M   139M    21K  /myzfs
+myzfs/colin            0   159M    18K  /myzfs/colin
+myzfs/colin3         18K   139M    18K  /myzfs/colin3
+myzfs/colin3@test      0      -    18K  -
+
+
+zfs destroy myzfs/colin 
+zfs list
+
+NAME                USED  AVAIL  REFER  MOUNTPOINT
+myzfs               147K   159M    21K  /myzfs
+myzfs/colin3         18K   159M    18K  /myzfs/colin3
+myzfs/colin3@test      0      -    18K  -
+</code></pre><p>Теперь сделанный ранее снепшот для <code>/myzfs/colin</code> стал дочерним объектом <code>/myzfs/colin3</code>. Таким образом у файловой системы <code>/myzfs/colin</code> больше нет дочерних объектов и ее можно без труда разобрать (удалить).</p><p>Если вдруг понадобиться переименовать ранее созданную файловую систему или снепшот, то можно воспользоваться следующими командами.</p><pre tabindex=0><code>zfs rename myzfs/colin3 myzfs/bob
+zfs list
+
+NAME             USED  AVAIL  REFER  MOUNTPOINT
+myzfs            153K   159M    21K  /myzfs
+myzfs/bob         18K   159M    18K  /myzfs/bob
+myzfs/bob@test      0      -    18K  -
+
+zfs rename myzfs/bob@test myzfs/bob@newtest
+zfs list
+
+NAME                USED  AVAIL  REFER  MOUNTPOINT
+myzfs               146K   159M    20K  /myzfs
+myzfs/bob            18K   159M    18K  /myzfs/bob
+myzfs/bob@newtest      0      -    18K  -
+</code></pre><h3 id=снова-вернемся-к-пулам>Снова вернемся к пулам
+<a class=anchor href=#%d1%81%d0%bd%d0%be%d0%b2%d0%b0-%d0%b2%d0%b5%d1%80%d0%bd%d0%b5%d0%bc%d1%81%d1%8f-%d0%ba-%d0%bf%d1%83%d0%bb%d0%b0%d0%bc>#</a></h3><p>Получить полную информацию о пулах можно следующим образом.</p><pre tabindex=0><code>zfs get all
+
+NAME               PROPERTY       VALUE                  SOURCE
+myzfs              type           filesystem             -
+myzfs              creation       Tue Sep 11 14:21 2007  -
+myzfs              used           146K                   -
+myzfs              available      159M                   -
+myzfs              referenced     20K                    -
+[...]
+</code></pre><p>Если пул нам более не нужен, можем его удалить. Однако, нельзя удалить пул, в котором имеются активные файловые системы.</p><pre tabindex=0><code>zpool destroy myzfs
+
+cannot destroy &#39;myzfs&#39;: pool is not empty
+use &#39;-f&#39; to force destruction anyway
+</code></pre><p>Чтобы принудительно удалить пул, используйте параметр <code>-f</code> (не выполняйте это сейчас. Пул нам еще понадобится далее)</p><pre tabindex=0><code>zpool destroy -f myzfs
+zpool status -v
+
+no pools available
+</code></pre><p>Отключить файловую систему от пула можно следующим образом.</p><pre tabindex=0><code>zfs unmount myzfs/bob
+df -h
+
+myzfs                  159M    20K   159M     1%    /myzfs
+</code></pre><p>Подключить файловую систему к пулу вот так.</p><pre tabindex=0><code>zfs mount myzfs/bob
+df -h
+
+myzfs                  159M    20K   159M     1%    /myzfs
+myzfs/bob              159M    18K   159M     1%    /myzfs/bob
+</code></pre><p>Снепшот можно сделать и на удаленный ресурс (или другое место в локальной системе).</p><pre tabindex=0><code>zfs send myzfs/bob@newtest | ssh localhost zfs receive myzfs/backup
+zfs list
+
+NAME                   USED  AVAIL  REFER  MOUNTPOINT
+myzfs                  172K   159M    20K  /myzfs
+myzfs/backup            18K   159M    18K  /myzfs/backup
+myzfs/backup@newtest      0      -    18K  -
+myzfs/bob               18K   159M    18K  /myzfs/bob
+myzfs/bob@newtest         0      -    18K  -
+</code></pre><p>В данном случае снепшот передан <code>zfs receive</code> на локальном узле (в демонстрационных целях). В реальной ситуации таким образом можно сделать снепшот на другой узел сети.</p><p>Zpool ведет собственную историю всех команд. Посмотреть историю можно следующим образом.</p><pre tabindex=0><code>zpool history
+
+History for &#39;myzfs&#39;:
+2007-09-11.15:35:50 zpool create myzfs mirror /disk1 /disk2 /disk3
+2007-09-11.15:36:00 zpool detach myzfs /disk3
+2007-09-11.15:36:10 zpool attach myzfs /disk1 /disk3
+2007-09-11.15:36:53 zpool detach myzfs /disk3
+2007-09-11.15:36:59 zpool add myzfs spare /disk3
+2007-09-11.15:37:09 zpool remove myzfs /disk3
+2007-09-11.15:37:18 zpool offline myzfs /disk1
+2007-09-11.15:37:27 zpool online myzfs /disk1
+2007-09-11.15:37:37 zpool replace myzfs /disk1 /disk3
+2007-09-11.15:37:47 zpool scrub myzfs
+2007-09-11.15:37:57 zpool export myzfs
+2007-09-11.15:38:05 zpool import -d / myzfs
+2007-09-11.15:38:52 zfs create myzfs/colin
+2007-09-11.15:39:27 zpool add myzfs mirror /disk1 /disk5
+2007-09-11.15:39:38 zfs create myzfs/colin2
+2007-09-11.15:39:50 zfs set reservation=20m myzfs/colin
+2007-09-11.15:40:18 zfs set quota=20m myzfs/colin2
+2007-09-11.15:40:35 zfs set compression=on myzfs/colin2
+2007-09-11.15:40:48 zfs snapshot myzfs/colin@test
+2007-09-11.15:40:59 zfs rollback myzfs/colin@test
+2007-09-11.15:41:11 zfs clone myzfs/colin@test myzfs/colin3
+2007-09-11.15:41:25 zfs destroy myzfs/colin2
+2007-09-11.15:42:12 zfs promote myzfs/colin3
+2007-09-11.15:42:26 zfs rename myzfs/colin3 myzfs/bob
+2007-09-11.15:42:57 zfs destroy myzfs/colin
+2007-09-11.15:43:23 zfs rename myzfs/bob@test myzfs/bob@newtest
+2007-09-11.15:44:30 zfs receive myzfs/backup
+</code></pre><p>Ну вот. Основные команды для работы с пулами ZFS усвоены.</p><p>Теперь можно удалить сам пул и файлы. Они нам больше не пригодятся.</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//blog-denisbondar-com.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#работа-с-пулом-zfs>Работа с пулом ZFS</a></li><li><a href=#работа-с-файловой-и-другими-системами-zfs>Работа с файловой и другими системами ZFS</a><ul><li><a href=#файловая-система>Файловая система</a></li><li><a href=#snapshots-снепшоты-или-снимки-состояния>Snapshots (снепшоты или снимки состояния)</a></li><li><a href=#снова-вернемся-к-пулам>Снова вернемся к пулам</a></li></ul></li></ul></nav></div></aside></main></body></html>
